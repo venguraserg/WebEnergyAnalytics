@@ -15,7 +15,9 @@ namespace WebEnergyAnalytics.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new TrendModel();
+            model.OnGet();
+            return View(model);
         }
 
         public IActionResult Privacy()

@@ -2,7 +2,77 @@
     ViewData["Title"] = "Home Page";
 }
 
+
+@model WebEnergyAnalytics.Models.TrendModel
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+    
 </div>
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<script>
+    // Получите массив данных из Razor страницы
+    var data = @Html.Raw(Json.Serialize(Model.Data));
+    var data2 = @Html.Raw(Json.Serialize(Model.Data2));
+    
+    
+    
+
+    // Используйте массив данных в JavaScript
+    // Например, создайте график с использованием Chart.js
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var chartOptions = {
+        scales: {
+            y: {
+                min: -10, // Минимальное значение оси Y
+                max: 20 // Максимальное значение оси Y
+                //beginAtZero: true
+            }
+            
+        }
+    };
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            
+            datasets: [
+                {
+                    label: 'Data',
+                    data: data,
+                
+                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1,
+                    pointRadius: 0,
+                    tension: 0.1 // Здесь указывается значение tension
+                },
+                {
+                    label: 'Data2',
+                    data: data2,
+
+                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1,
+                    pointRadius: 0,
+                    tension: 0.1 // Здесь указывается значение tension
+                }
+            ]
+        },
+        options: chartOptions
+    });
+
+
+
+
+
+    
+</script>
