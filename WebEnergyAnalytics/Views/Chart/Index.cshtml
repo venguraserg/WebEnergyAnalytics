@@ -2,6 +2,18 @@
     ViewData["Title"] = "Chart page";
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div>
+            Name: @item.Name
+            Date: @item.Date
+            Value: @item.Value
+        </div>
+    }
+</div>
+
 <div>
     <canvas id="myChart"></canvas>
 </div>
