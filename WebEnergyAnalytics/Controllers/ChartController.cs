@@ -42,8 +42,14 @@ namespace WebEnergyAnalytics.Controllers
             try
             {
                 var result = db.Query<Data>("SELECT * FROM my_test_db WHERE name='T_obr_1'").ToList();
+                var dict = new Dictionary<DateTime, double>();
 
-                return result;
+                foreach(var item in result)
+                {
+                    dict[item.Date] = item.Value;
+                }
+                //var sortedDict = new SortedDictionary<DateTime, double>(dict);
+                return dict;
             }
             catch { return null; }
         }
