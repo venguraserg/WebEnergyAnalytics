@@ -37,18 +37,19 @@ namespace WebEnergyAnalytics.Controllers
             public double Value { get;}
         }
 
-        private List<Data> GetData()
+        private Dictionary<DateTime, double> GetData()
         {
-            try
+            using(IDbConnection db = Connection)
             {
-                using (IDbConnection db = Connection)
-                {
-                    var result = db.Query<Data>("SELECT * FROM my_test_db WHERE name='T_obr_1'").ToList();
+                var result = db.Query<Data>("SELECT * FROM my_test_db WHERE name='T_obr_1'").ToList();
 
-                    return result;
+                foreach(var item in result)
+                {
+                    dict[item.Date] = item.Value;
                 }
+                //var sortedDict = new SortedDictionary<DateTime, double>(dict);
+                return dict;
             }
-            catch { return null; }
         }
     }
 }
