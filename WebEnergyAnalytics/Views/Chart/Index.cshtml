@@ -29,7 +29,7 @@
 </div>
 
 <script>
-    var label = @Html.Raw(Json.Serialize(Model.Data));
+    var label = @Html.Raw(Model);
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {

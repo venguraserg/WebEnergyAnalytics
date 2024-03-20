@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
+using WebEnergyAnalytics.Models;
 
 namespace WebEnergyAnalytics.Controllers
 {
@@ -26,7 +27,7 @@ namespace WebEnergyAnalytics.Controllers
         }
         public IActionResult Index()
         {
-            var model = GetData();
+            var model = TrendModel.OnGet();
             return View(model);
         }
 
@@ -37,7 +38,7 @@ namespace WebEnergyAnalytics.Controllers
             public double Value { get;}
         }
 
-        public Dictionary<DateTime, double> GetData()
+        public static Dictionary<DateTime, double> GetData()
         {
             var dict = new Dictionary<DateTime, double>();
             try
