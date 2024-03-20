@@ -4,13 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div>
-    @foreach (var item in model)
-    {
-        <div>
-            key: @item.key
-            value: @item.value
-        </div>
-    }
+    
 </div>
 
 <div class="row">
@@ -29,7 +23,7 @@
 </div>
 
 <script>
-    var label = @Html.Raw(Json.Encode(@Model.dict))
+    var label = @Html.Raw(Json.Serialize(@Model.Key))
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
