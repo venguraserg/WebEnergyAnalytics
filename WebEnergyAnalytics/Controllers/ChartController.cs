@@ -37,7 +37,7 @@ namespace WebEnergyAnalytics.Controllers
             public double Value { get;}
         }
 
-        private Dictionary<DateTime, double> GetData()
+        public Dictionary<DateTime, double> GetData()
         {
             var dict = new Dictionary<DateTime, double>();
             try
