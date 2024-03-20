@@ -32,28 +32,26 @@ namespace WebEnergyAnalytics.Controllers
 
         public class Data
         {
-            public string Name { get;}
+            public string? Name { get;}
             public DateTime Date { get;}
             public double Value { get;}
         }
 
         private Dictionary<DateTime, double> GetData()
         {
+            var dict = new Dictionary<DateTime, double>();
             try
             {
-                using (IDbConnection db = Connection)
-                {
-                    var result = db.Query<Data>("SELECT * FROM my_test_db WHERE name='T_obr_1'").ToList();
-                    var dict = new Dictionary<DateTime, double>();
+                using IDbConnection db = Connection;
+                var result = db.Query<Data>("SELECT * FROM my_test_db WHERE name='T_obr_1'").ToList();
 
-                    foreach (var item in result)
-                    {
-                        dict[item.Date] = item.Value;
-                    }
-                    return dict;
+                foreach (var item in result)
+                {
+                    dict[item.Date] = item.Value;
                 }
             }
-            catch { return null; }
+            catch { }
+            return dict;
         }
     }
 }
