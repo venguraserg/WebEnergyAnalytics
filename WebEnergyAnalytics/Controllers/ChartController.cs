@@ -50,7 +50,6 @@ namespace WebEnergyAnalytics.Controllers
                     {
                         dict[item.Date] = item.Value;
                     }
-                    //var sortedDict = new SortedDictionary<DateTime, double>(dict);
                     return dict;
                 }
             }
