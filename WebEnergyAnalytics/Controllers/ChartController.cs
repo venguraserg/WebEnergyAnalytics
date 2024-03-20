@@ -39,12 +39,16 @@ namespace WebEnergyAnalytics.Controllers
 
         private List<Data> GetData()
         {
-            using(IDbConnection db = Connection)
+            try
             {
-                var result = db.Query<Data>("SELECT * FROM my_test_db WHERE name='T_obr_1'").ToList();
+                using (IDbConnection db = Connection)
+                {
+                    var result = db.Query<Data>("SELECT * FROM my_test_db WHERE name='T_obr_1'").ToList();
 
-                return result;
+                    return result;
+                }
             }
+            catch { return null; }
         }
     }
 }
