@@ -27,7 +27,7 @@ namespace WebEnergyAnalytics.Controllers
         }
         public IActionResult Index()
         {
-            var model = TrendModel.OnGet();
+            var model = TrendModel.GetData();
             return View(model);
         }
 
@@ -38,7 +38,7 @@ namespace WebEnergyAnalytics.Controllers
             public double Value { get;}
         }
 
-        public static Dictionary<DateTime, double> GetData()
+        public Dictionary<DateTime, double> GetData()
         {
             var dict = new Dictionary<DateTime, double>();
             try

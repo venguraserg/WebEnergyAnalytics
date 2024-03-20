@@ -11,7 +11,7 @@ namespace WebEnergyAnalytics.Models
         public Dictionary<DateTime, double> Data { get; set; }
 
         [HttpGet]
-        public static void OnGet()
+        public void OnGet()
         {
             // Заполните массив данных
             Data = ChartController.GetData();
