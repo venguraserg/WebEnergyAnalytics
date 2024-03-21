@@ -1,53 +1,76 @@
-﻿@{
+﻿@model ChartModel
+@{
     ViewData["Title"] = "Chart page";
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div>
-    @foreach (var item in Model)
-    {
-        <div>
-            key: @item.Key
-            value: @item.Value
-        </div>
-    }
+    
 </div>
 
-<div class="row">
-    <div class="col-6">
-        <input type="date" name="startdate" id="startdate" class="form-control form-control-sm">
+
+<form method="post">
+    <div class="row">
+        <div class="col-6">
+            <input type="datetime-local" name="startdate" id="startdate" class="form-control form-control-sm">
+        </div>
+        <div class="col-6">
+            <input type="datetime-local" name="enddate" id="enddate" class="form-control form-control-sm">
+        </div>
+        <div class="col-6">
+            <input type="submit" value="Показать" name="show" id="show" class="form-control form-control-sm">
+        </div>
+        <div class="col-6">
+            <select name="titleContr">
+                @foreach (var item in Model.Title)
+                {
+                    <option value="@item" name="title">@item</option>
+                }
+            </select>
+        </div>
     </div>
-    <div class="col-6">
-        <input type="date" name="enddate" id="enddate" class="form-control form-control-sm">
-    </div>
-    <div class="col-6">
-        <input type="button" value="Показать" name="show" id="show" class="form-control form-control-sm">
-    </div>
-</div>
+</form>
+
 <div>
     <canvas id="myChart"></canvas>
 </div>
 
 <script>
-    var label = @Html.Raw(Model);
-    const ctx = document.getElementById('myChart');
+    // Получите массив данных из Razor страницы
+    var data = @Html.Raw(Json.Serialize(Model.Data));
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: label,
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+    // Используйте массив данных в JavaScript
+    // Например, создайте график с использованием Chart.js
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var chartOptions = {
+        scales: {
+            y: {
+                min: -10, // Минимальное значение оси Y
+                max: 30 // Максимальное значение оси Y
+                //beginAtZero: true
             }
+
         }
+    };
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+
+            datasets: [
+                {
+                    label: 'Data',
+                    data: data,
+
+                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1,
+                    pointRadius: 1,
+                    tension: 0.2 // Здесь указывается значение tension
+                }
+            ]
+        },
+        options: chartOptions
     });
 </script>
