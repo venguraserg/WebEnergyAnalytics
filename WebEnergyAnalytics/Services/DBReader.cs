@@ -48,6 +48,7 @@ namespace WebEnergyAnalytics.Services
         public static List<string> ReadTitle()
         {
             var listTitle = new List<string>();
+            var finishList = new List<string>();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -56,7 +57,7 @@ namespace WebEnergyAnalytics.Services
                     connection.Open();
 
                     // SQL-запрос для получения всех строк из таблицы
-                    string query = $"SELECT name FROM `my_test_db` ORDER BY name";
+                    string query = $"SELECT DISTINCT name FROM `my_test_db` ORDER BY name";
                     MySqlCommand command = new MySqlCommand(query, connection);
 
                     // Выполнение SQL-запроса и получение результатов
@@ -71,11 +72,10 @@ namespace WebEnergyAnalytics.Services
                         listTitle.Add(title);
                         // Вывод значений полей
                     }
-
+                    finishList = listTitle.Distinct().ToList();
                     reader.Close();
                 }
                 catch { }
-                var finishList = listTitle.Distinct().ToList();
                 return finishList;
             }
         }

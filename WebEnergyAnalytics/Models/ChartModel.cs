@@ -13,7 +13,12 @@ namespace WebEnergyAnalytics.Models
         public string EndDate {  get; set; }
 
         [HttpGet]
-        public void OnGet(string titleContr, string startDate, string endDate)
+        public void OnGet()
+        {
+            Title = DBReader.ReadTitle();
+        }
+
+        public void Post(string titleContr, string startDate, string endDate)
         {
             TitleContr = titleContr;
             StartDate = startDate;

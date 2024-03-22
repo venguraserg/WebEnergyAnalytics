@@ -21,7 +21,7 @@
         </div>
         <div class="col-6">
             <select name="titleContr">
-                @foreach (var item in Model.Title)
+                @foreach (var item in @Model.Title)
                 {
                     <option value="@item" name="title">@item</option>
                 }
@@ -41,13 +41,13 @@
 
     // Используйте массив данных в JavaScript
     // Например, создайте график с использованием Chart.js
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById('myChart');
 
     var chartOptions = {
         scales: {
             y: {
-                min: -10, // Минимальное значение оси Y
-                max: 30 // Максимальное значение оси Y
+                //min: -10, // Минимальное значение оси Y
+                //max: 30 // Максимальное значение оси Y
                 //beginAtZero: true
             }
 

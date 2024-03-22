@@ -11,7 +11,7 @@ namespace WebEnergyAnalytics.Controllers
         public IActionResult Index()
         {
             var model = new ChartModel();
-            model.OnGet(titleContr, startDate, endDate);
+            model.OnGet();
             return View(model);
         }
 
@@ -25,7 +25,7 @@ namespace WebEnergyAnalytics.Controllers
                 titleContr = Request.Form["titleContr"];
 
                 var model = new ChartModel();
-                model.OnGet(titleContr, startDate, endDate);
+                model.Post(titleContr, startDate, endDate);
                 return View(model);
             }
             return View("Index");
