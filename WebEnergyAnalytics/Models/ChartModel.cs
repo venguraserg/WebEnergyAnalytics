@@ -8,21 +8,19 @@ namespace WebEnergyAnalytics.Models
     {
         public Dictionary<DateTime, double> Data { get; set; }
         public List<string> Title {  get; set; }
-        public string? Name {  get; set; }
+        public string TitleContr {  get; set; }
+        public string StartDate {  get; set; }
+        public string EndDate {  get; set; }
 
         [HttpGet]
-        public void OnGet()
+        public void OnGet(string titleContr, string startDate, string endDate)
         {
+            TitleContr = titleContr;
+            StartDate = startDate;
+            EndDate = endDate;
             // Заполните массив данных
-            Data = DBReader.ReadValue("T_obr_1", "2024-03-20 00:00:00", "2024-03-21 05:00:00");
+            Data = DBReader.ReadValue(titleContr, startDate, endDate);
             Title = DBReader.ReadTitle();
-            MyAction(Name);
-        }
-        [HttpPost]
-        public IActionResult MyAction(string data)
-        {
-            // Используйте значение параметра "data"
-            return null;
         }
     }
 }
